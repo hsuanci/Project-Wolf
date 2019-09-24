@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Project.Models;
 
 namespace Project.Controllers
@@ -104,15 +105,14 @@ namespace Project.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            return Ok("Successful Update OrderID:" + id + "Detail String:" + JsonConvert.SerializeObject(orders));
         }
 
         // POST: api/Orders
         [HttpPost]
         public async Task<ActionResult<Orders>> PostOrders(Orders orders)
         {
-            try 
+            try
             {
                 _context.Orders.Add(orders);
                 await _context.SaveChangesAsync();
